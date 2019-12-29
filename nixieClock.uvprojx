@@ -387,6 +387,11 @@
               <FileType>1</FileType>
               <FilePath>.\Application\main.c</FilePath>
             </File>
+            <File>
+              <FileName>DynamicIndication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\DynamicIndication.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -396,6 +401,11 @@
               <FileName>GPIO_Config.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\PeripheryDrivers\GPIO_Config.c</FilePath>
+            </File>
+            <File>
+              <FileName>TIM_Config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PeripheryDrivers\TIM_Config.c</FilePath>
             </File>
           </Files>
         </Group>

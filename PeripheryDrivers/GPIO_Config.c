@@ -55,5 +55,6 @@ void GPIO_Config(void)
 	GPIO_Struct.GPIO_Speed							= GPIO_Speed_10MHz;
 
 	GPIO_Init(GPIO_DS3231_PORT, &GPIO_Struct);
+	
 	/*================================================================*/
 }
