@@ -24,7 +24,6 @@
 #define NIXIE_LAMP6_DISABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP6_PIN, Bit_RESET)
 /*=========================================================================================================*/
 
-
 /*=========================================== DECODER SECTION =============================================*/
 
 #define NIXIE_DECODER_A0_ENABLE				GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A0_PIN, Bit_SET)
@@ -91,6 +90,51 @@
 																			NIXIE_DECODER_A1_DISABLE; \
 																			NIXIE_DECODER_A2_DISABLE; \
 																			NIXIE_DECODER_A3_ENABLE;
+/*=========================================================================================================*/
+
+/*===================================== NIXIE ONE LAMP VALUE SECTION ======================================*/
+
+#define NIXIE_ONLY_1ST_LAMP_ON				NIXIE_LAMP1_ENABLE; \
+																			NIXIE_LAMP2_DISABLE;\
+																			NIXIE_LAMP3_DISABLE;\
+																			NIXIE_LAMP4_DISABLE;\
+																			NIXIE_LAMP5_DISABLE;\
+																			NIXIE_LAMP6_DISABLE;
+
+#define NIXIE_ONLY_2ND_LAMP_ON				NIXIE_LAMP1_DISABLE;\
+																			NIXIE_LAMP2_ENABLE; \
+																			NIXIE_LAMP3_DISABLE;\
+																			NIXIE_LAMP4_DISABLE;\
+																			NIXIE_LAMP5_DISABLE;\
+																			NIXIE_LAMP6_DISABLE;
+
+#define NIXIE_ONLY_3RD_LAMP_ON				NIXIE_LAMP1_DISABLE;\
+																			NIXIE_LAMP2_DISABLE;\
+																			NIXIE_LAMP3_ENABLE; \
+																			NIXIE_LAMP4_DISABLE;\
+																			NIXIE_LAMP5_DISABLE;\
+																			NIXIE_LAMP6_DISABLE;
+																			
+#define NIXIE_ONLY_4TH_LAMP_ON				NIXIE_LAMP1_DISABLE;\
+																			NIXIE_LAMP2_DISABLE;\
+																			NIXIE_LAMP3_DISABLE;\
+																			NIXIE_LAMP4_ENABLE; \
+																			NIXIE_LAMP5_DISABLE;\
+																			NIXIE_LAMP6_DISABLE;
+																			
+#define NIXIE_ONLY_5TH_LAMP_ON				NIXIE_LAMP1_DISABLE;\
+																			NIXIE_LAMP2_DISABLE;\
+																			NIXIE_LAMP3_DISABLE;\
+																			NIXIE_LAMP4_DISABLE;\
+																			NIXIE_LAMP5_ENABLE; \
+																			NIXIE_LAMP6_DISABLE;
+																			
+#define NIXIE_ONLY_6TH_LAMP_ON				NIXIE_LAMP1_DISABLE;\
+																			NIXIE_LAMP2_DISABLE;\
+																			NIXIE_LAMP3_DISABLE;\
+																			NIXIE_LAMP4_DISABLE;\
+																			NIXIE_LAMP5_DISABLE;\
+																			NIXIE_LAMP6_ENABLE;
 /*=========================================================================================================*/
 
 #endif  // DYNAMICINDICATION_H

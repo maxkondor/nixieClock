@@ -49,7 +49,7 @@ void GPIO_Config(void)
 
 	/*======================= DS3231 SECTION =========================*/
 
-	GPIO_Struct.GPIO_Mode								= GPIO_Mode_AF_PP;
+	GPIO_Struct.GPIO_Mode								= GPIO_Mode_AF_OD;
 	GPIO_Struct.GPIO_Pin								= GPIO_DS3231_SCL_PIN |
 																				GPIO_DS3231_SDA_PIN;
 	GPIO_Struct.GPIO_Speed							= GPIO_Speed_10MHz;

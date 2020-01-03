@@ -3,7 +3,7 @@
 
 #include "stm32f10x_tim.h"
 
-#define NIXIE_TIM_PRESCALLER							28000
+#define NIXIE_TIM_PRESCALLER							4000
 #define NIXIE_TIM_PERIOD									4
 
 void TIM_Config(void);

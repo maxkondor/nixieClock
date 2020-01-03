@@ -8,12 +8,12 @@
 
 #define GPIO_LAMPS_PORT									GPIOA
 
-#define GPIO_LAMP1_PIN									GPIO_Pin_8
-#define GPIO_LAMP2_PIN									GPIO_Pin_9
-#define GPIO_LAMP3_PIN									GPIO_Pin_10
-#define GPIO_LAMP4_PIN									GPIO_Pin_11
-#define GPIO_LAMP5_PIN									GPIO_Pin_7
-#define GPIO_LAMP6_PIN									GPIO_Pin_6
+#define GPIO_LAMP1_PIN									GPIO_Pin_6
+#define GPIO_LAMP2_PIN									GPIO_Pin_7
+#define GPIO_LAMP3_PIN									GPIO_Pin_11
+#define GPIO_LAMP4_PIN									GPIO_Pin_10
+#define GPIO_LAMP5_PIN									GPIO_Pin_9
+#define GPIO_LAMP6_PIN									GPIO_Pin_8
 /*================================================================*/
 
 /*======================= DECODER SECTION ========================*/
