@@ -8,13 +8,14 @@
 
 int main (void)
 {
+	HAL_Init();
 	RCC_Config();
 	GPIO_Config();
 	TIM_Config();
 	I2C_Config();
 	
-	ds3231_str timeStruct;
-	uint8_t lampsArr[6];
+	ds3231_str 	timeStruct;
+	uint8_t 		lampsArr[6];
 	
 	while(1)
 	{

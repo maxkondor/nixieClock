@@ -1,29 +1,39 @@
 #include "TIM_Config.h"
 
+TIM_HandleTypeDef 																					TimerHandler;
+
 void TIM_Config(void)
 {
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+	__HAL_RCC_TIM2_CLK_ENABLE();
 	
-	TIM_TimeBaseInitTypeDef 									TIM_Struct;
-	NVIC_InitTypeDef 													NVIC_Struct;
+	TIM_ClockConfigTypeDef 																		sClockSourceConfig 	= {0};
+  TIM_MasterConfigTypeDef 																	sMasterConfig 			= {0};
+
+  TimerHandler.Instance 																		= TIM2;
+  TimerHandler.Init.Prescaler 															= NIXIE_TIM_PRESCALLER;
+  TimerHandler.Init.CounterMode 														= TIM_COUNTERMODE_UP;
+  TimerHandler.Init.Period 																	= NIXIE_TIM_PERIOD;
+  TimerHandler.Init.ClockDivision 													= TIM_CLOCKDIVISION_DIV1;
+  TimerHandler.Init.AutoReloadPreload 											= TIM_AUTORELOAD_PRELOAD_DISABLE;
 	
-	TIM_Struct.TIM_ClockDivision 							= TIM_CKD_DIV1;
-	TIM_Struct.TIM_CounterMode 								= TIM_CounterMode_Up;
-	TIM_Struct.TIM_Prescaler									= NIXIE_TIM_PRESCALLER - 1;
-	TIM_Struct.TIM_Period											= NIXIE_TIM_PERIOD;
-	TIM_Struct.TIM_RepetitionCounter 					= 0;
+  HAL_TIM_Base_Init(&TimerHandler);
+
+  sClockSourceConfig.ClockSource 														= TIM_CLOCKSOURCE_INTERNAL;
 	
-	TIM_TimeBaseInit(TIM2, &TIM_Struct);
+  HAL_TIM_ConfigClockSource(&TimerHandler, &sClockSourceConfig);
+
+  sMasterConfig.MasterOutputTrigger 												= TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode 														= TIM_MASTERSLAVEMODE_DISABLE;
 	
-	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
+  HAL_TIMEx_MasterConfigSynchronization(&TimerHandler, &sMasterConfig);
 	
+	HAL_NVIC_SetPriority(TIM2_IRQn, 2, 1);
+  HAL_NVIC_EnableIRQ(TIM2_IRQn);
 	
-	
-	NVIC_Struct.NVIC_IRQChannel = TIM2_IRQn;
-	NVIC_Struct.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_Struct.NVIC_IRQChannelSubPriority = 2;
-	NVIC_Struct.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_Struct);
-	
-	TIM_Cmd(TIM2, ENABLE);
+	HAL_TIM_Base_Start_IT(&TimerHandler);
+}
+
+void SysTick_Handler(void)
+{
+  HAL_IncTick();
 }

@@ -3,41 +3,41 @@
 
 #include "GPIO_Config.h"
 
-/*========================================= NIXIE TUBES SECTION ===========================================*/
+/*============================================= NIXIE TUBES SECTION ===============================================*/
 
-#define NIXIE_LAMP1_ENABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP1_PIN, Bit_SET)
-#define NIXIE_LAMP1_DISABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP1_PIN, Bit_RESET)
+#define NIXIE_LAMP1_ENABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP1_PIN, GPIO_PIN_SET)							
+#define NIXIE_LAMP1_DISABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP1_PIN, GPIO_PIN_RESET)	
 
-#define NIXIE_LAMP2_ENABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP2_PIN, Bit_SET)
-#define NIXIE_LAMP2_DISABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP2_PIN, Bit_RESET)
+#define NIXIE_LAMP2_ENABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP2_PIN, GPIO_PIN_SET)	
+#define NIXIE_LAMP2_DISABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP2_PIN, GPIO_PIN_RESET)	
 
-#define NIXIE_LAMP3_ENABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP3_PIN, Bit_SET)
-#define NIXIE_LAMP3_DISABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP3_PIN, Bit_RESET)
+#define NIXIE_LAMP3_ENABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP3_PIN, GPIO_PIN_SET)	
+#define NIXIE_LAMP3_DISABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP3_PIN, GPIO_PIN_RESET)	
 
-#define NIXIE_LAMP4_ENABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP4_PIN, Bit_SET)
-#define NIXIE_LAMP4_DISABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP4_PIN, Bit_RESET)
+#define NIXIE_LAMP4_ENABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP4_PIN, GPIO_PIN_SET)	
+#define NIXIE_LAMP4_DISABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP4_PIN, GPIO_PIN_RESET)	
 
-#define NIXIE_LAMP5_ENABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP5_PIN, Bit_SET)
-#define NIXIE_LAMP5_DISABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP5_PIN, Bit_RESET)
+#define NIXIE_LAMP5_ENABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP5_PIN, GPIO_PIN_SET)	
+#define NIXIE_LAMP5_DISABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP5_PIN, GPIO_PIN_RESET)	
 
-#define NIXIE_LAMP6_ENABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP6_PIN, Bit_SET)
-#define NIXIE_LAMP6_DISABLE						GPIO_WriteBit(GPIO_LAMPS_PORT, GPIO_LAMP6_PIN, Bit_RESET)
-/*=========================================================================================================*/
+#define NIXIE_LAMP6_ENABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP6_PIN, GPIO_PIN_SET)	
+#define NIXIE_LAMP6_DISABLE						HAL_GPIO_WritePin(GPIO_LAMPS_PORT, GPIO_LAMP6_PIN, GPIO_PIN_RESET)	
+/*=================================================================================================================*/
 
-/*=========================================== DECODER SECTION =============================================*/
+/*=============================================== DECODER SECTION =================================================*/
 
-#define NIXIE_DECODER_A0_ENABLE				GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A0_PIN, Bit_SET)
-#define NIXIE_DECODER_A0_DISABLE			GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A0_PIN, Bit_RESET)
+#define NIXIE_DECODER_A0_ENABLE				HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A0_PIN, GPIO_PIN_SET)
+#define NIXIE_DECODER_A0_DISABLE			HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A0_PIN, GPIO_PIN_RESET)
 
-#define NIXIE_DECODER_A1_ENABLE				GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A1_PIN, Bit_SET)
-#define NIXIE_DECODER_A1_DISABLE			GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A1_PIN, Bit_RESET)
+#define NIXIE_DECODER_A1_ENABLE				HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A1_PIN, GPIO_PIN_SET)
+#define NIXIE_DECODER_A1_DISABLE			HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A1_PIN, GPIO_PIN_RESET)
 
-#define NIXIE_DECODER_A2_ENABLE				GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A2_PIN, Bit_SET)
-#define NIXIE_DECODER_A2_DISABLE			GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A2_PIN, Bit_RESET)
+#define NIXIE_DECODER_A2_ENABLE				HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A2_PIN, GPIO_PIN_SET)
+#define NIXIE_DECODER_A2_DISABLE			HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A2_PIN, GPIO_PIN_RESET)
 
-#define NIXIE_DECODER_A3_ENABLE				GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A3_PIN, Bit_SET)
-#define NIXIE_DECODER_A3_DISABLE			GPIO_WriteBit(GPIO_DECODER_PORT, GPIO_DECODER_A3_PIN, Bit_RESET)
-/*=========================================================================================================*/
+#define NIXIE_DECODER_A3_ENABLE				HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A3_PIN, GPIO_PIN_SET)
+#define NIXIE_DECODER_A3_DISABLE			HAL_GPIO_WritePin(GPIO_DECODER_PORT, GPIO_DECODER_A3_PIN, GPIO_PIN_RESET)
+/*=================================================================================================================*/
 
 /*======================================== DECODER DIGITS SECTION =========================================*/
 

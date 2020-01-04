@@ -1,5 +1,6 @@
 #include "DynamicIndication.h"
 #include "DynamicIndicationMacrocces.h"
+#include "TIM_Config.h"
 
 uint8_t GlobalLampsArr[6];
 
@@ -11,11 +12,8 @@ uint8_t DynamicCounter(DynamicCounterState state);
 
 void TIM2_IRQHandler(void)
 {
-	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
-	{
-		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
-		DynamicShow(GlobalLampsArr);
-	}
+	HAL_TIM_IRQHandler(&TimerHandler);
+	DynamicShow(GlobalLampsArr);
 }
 /*==============================================================================*/
 

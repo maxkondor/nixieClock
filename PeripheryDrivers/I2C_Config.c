@@ -1,71 +1,45 @@
 #include "I2C_Config.h"
 
+void I2C_ErrorHandler(void);
+
+I2C_HandleTypeDef 										I2C_Handler;
+
 void I2C_Config(void)
 {
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
+	__HAL_RCC_I2C1_CLK_ENABLE();
 	
-	I2C_InitTypeDef 											I2C_Struct;
-	I2C_DeInit(I2C1);
+	I2C_Handler.Instance 								= I2C1;
+  I2C_Handler.Init.ClockSpeed 				= 100000;
+  I2C_Handler.Init.DutyCycle 					= I2C_DUTYCYCLE_2;
+  I2C_Handler.Init.OwnAddress1 				= 0x36;
+  I2C_Handler.Init.AddressingMode 		= I2C_ADDRESSINGMODE_7BIT;
+  I2C_Handler.Init.DualAddressMode 		= I2C_DUALADDRESS_DISABLE;
+  I2C_Handler.Init.OwnAddress2 				= 0;
+  I2C_Handler.Init.GeneralCallMode 		= I2C_GENERALCALL_DISABLE;
+  I2C_Handler.Init.NoStretchMode 			= I2C_NOSTRETCH_DISABLE;
 	
-	I2C_Struct.I2C_ClockSpeed 						= 100000;
-	I2C_Struct.I2C_Mode 									= I2C_Mode_I2C;
-	I2C_Struct.I2C_DutyCycle      				= I2C_DutyCycle_2;
-	I2C_Struct.I2C_OwnAddress1						= 0x07;
-	I2C_Struct.I2C_Ack										= I2C_Ack_Enable;
-	I2C_Struct.I2C_AcknowledgedAddress 		= I2C_AcknowledgedAddress_7bit;
-	
-	I2C_Cmd(I2C1, ENABLE);
-	I2C_Init(I2C1, &I2C_Struct);
+  HAL_I2C_Init(&I2C_Handler);
 }
 
 void I2C_WriteData(uint8_t devAddr, uint8_t addr, uint8_t value)
 {
-	while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY));
+	uint8_t sendData[2];
 	
-	I2C_GenerateSTART(I2C1, ENABLE);
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
+	sendData[0] = addr;
+	sendData[1] = value;
 	
-	I2C_Send7bitAddress(I2C1, devAddr, I2C_Direction_Transmitter);
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
-	
-	I2C_SendData(I2C1, addr);
-  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
-	
-	I2C_SendData(I2C1, value);
-  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));	
-	
-	I2C_GenerateSTOP(I2C1, ENABLE);
-	while (I2C_GetFlagStatus(I2C1, I2C_FLAG_STOPF));
+	while(HAL_I2C_Master_Transmit(&I2C_Handler, devAddr, sendData, 2, 50) != HAL_OK);
 }
 
 uint8_t I2C_ReadData(uint8_t devAddr, uint8_t addr)
 {
-	uint8_t data = 0;	
+	uint8_t data[2];
 	
-	while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY));
-	
-	I2C_GenerateSTART(I2C1, ENABLE);
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
-	
-	I2C_Send7bitAddress(I2C1, devAddr, I2C_Direction_Transmitter);
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));	
-	
-	I2C_SendData(I2C1, addr);
-  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
-	
-	I2C_GenerateSTART(I2C1, ENABLE);
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
-	
-	I2C_Send7bitAddress(I2C1, devAddr, I2C_Direction_Receiver);
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));	
-	
-	I2C_AcknowledgeConfig(I2C1, DISABLE);
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED));
-	
-	data = I2C_ReceiveData(I2C1);
+	data[0] = addr;
 
-	I2C_GenerateSTOP(I2C1, ENABLE);
-	while (I2C_GetFlagStatus(I2C1, I2C_FLAG_STOPF));
+	while(HAL_I2C_Master_Transmit(&I2C_Handler, devAddr, &data[0], 1, 50) != HAL_OK);
 	
-	return data;
+	while(HAL_I2C_Master_Receive(&I2C_Handler, devAddr, &data[1], 1, 50) != HAL_OK);
+	
+	return data[1];
 }
