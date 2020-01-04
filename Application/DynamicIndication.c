@@ -1,11 +1,10 @@
 #include "DynamicIndication.h"
 #include "DynamicIndicationMacrocces.h"
 
-uint8_t* GlobalLampsArr;
+uint8_t GlobalLampsArr[6];
 
 void ShowSimpleDigit(uint8_t *digit);
 void DynamicShow(uint8_t *nixieArr);
-
 uint8_t DynamicCounter(DynamicCounterState state);
 
 /*=========================== TIM2 Interrupt Handler ===========================*/
@@ -15,7 +14,6 @@ void TIM2_IRQHandler(void)
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
 	{
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
-		DynamicCounter(SETVal);
 		DynamicShow(GlobalLampsArr);
 	}
 }
@@ -67,7 +65,7 @@ void ShowSimpleDigit(uint8_t *digit)
 	}
 }
 
-void DynamicShow(uint8_t *nixieArr)
+void DynamicShow(uint8_t nixieArr[6])
 {
 	switch(DynamicCounter(GETVal))
 	{
@@ -101,6 +99,8 @@ void DynamicShow(uint8_t *nixieArr)
 			ShowSimpleDigit(&nixieArr[5]);
 		break;
 	}
+	
+	DynamicCounter(SETVal);
 }
 
 uint8_t DynamicCounter(DynamicCounterState state)
@@ -108,12 +108,14 @@ uint8_t DynamicCounter(DynamicCounterState state)
 	static uint8_t counter;
 	
 	if(state != GETVal)
-	counter > 4 ? counter = 0 : counter++;
+	{
+		counter > 4 ? counter = 0 : counter++;
+	}
 	
 	return counter;
 }
 
-void Nixie_ShowArr(uint8_t* arr)
+void Nixie_ShowArr(uint8_t arr[6])
 {
-	GlobalLampsArr = arr;
+	memcpy(GlobalLampsArr, arr, 6);
 }

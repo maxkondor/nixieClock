@@ -4,6 +4,7 @@
 #include "I2C_Config.h"
 #include "DynamicIndication.h"
 
+#include "DS3231.h"
 
 int main (void)
 {
@@ -12,23 +13,22 @@ int main (void)
 	TIM_Config();
 	I2C_Config();
 	
-	uint8_t arr[6];
-	
-	arr[0] = 1;
-	arr[1] = 2;
-	arr[2] = 3;
-	arr[3] = 4;
-	arr[4] = 5;
-	arr[5] = 6;
-	
-	Nixie_ShowArr(arr);
-	
-	uint8_t data = 0;
-	
-	data = I2C_ReadData(0x00);
+	ds3231_str timeStruct;
+	uint8_t lampsArr[6];
 	
 	while(1)
 	{
-	
+		DS3231_ReadData(&timeStruct);
+		
+		lampsArr[0] = timeStruct.hours / 10;
+		lampsArr[1] = timeStruct.hours % 10;
+		
+		lampsArr[2] = timeStruct.minutes / 10;
+		lampsArr[3] = timeStruct.minutes % 10;
+		
+		lampsArr[4] = timeStruct.seconds / 10;
+		lampsArr[5] = timeStruct.seconds % 10;
+		
+		Nixie_ShowArr(lampsArr);
 	}
 }

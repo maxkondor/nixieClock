@@ -421,6 +421,13 @@
         </Group>
         <Group>
           <GroupName>ExternalModulesDrivers</GroupName>
+          <Files>
+            <File>
+              <FileName>DS3231.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ExternalModuleDrivers\DS3231.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
