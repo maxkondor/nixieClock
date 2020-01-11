@@ -38,11 +38,12 @@ void GPIO_Config(void)
 
 	/*======================= BUTTONS SECTION ========================*/
 
-	GPIO_Struct.Mode 										= GPIO_MODE_IT_FALLING;
+	GPIO_Struct.Mode 										= GPIO_MODE_IT_RISING;
 	GPIO_Struct.Pin 										= GPIO_BUTTON1_PIN |
 																				GPIO_BUTTON2_PIN |
 																				GPIO_BUTTON3_PIN;
 	GPIO_Struct.Speed 									= GPIO_SPEED_FREQ_MEDIUM;
+	GPIO_Struct.Pull										= GPIO_NOPULL;
 
 	HAL_GPIO_Init(GPIO_BUTTONS_PORT, &GPIO_Struct);
 	/*================================================================*/
@@ -53,6 +54,7 @@ void GPIO_Config(void)
 	GPIO_Struct.Pin											= GPIO_DS3231_SCL_PIN |
 																				GPIO_DS3231_SDA_PIN;
 	GPIO_Struct.Speed										= GPIO_SPEED_FREQ_MEDIUM;
+	 
 
 	HAL_GPIO_Init(GPIO_DS3231_PORT, &GPIO_Struct);
 	/*================================================================*/

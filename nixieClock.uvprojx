@@ -312,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -392,6 +392,16 @@
               <FileType>1</FileType>
               <FilePath>.\Application\DynamicIndication.c</FilePath>
             </File>
+            <File>
+              <FileName>ButtonsInput.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\ButtonsInput.c</FilePath>
+            </File>
+            <File>
+              <FileName>Nixie.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\Nixie.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -416,6 +426,11 @@
               <FileName>I2C_Config.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\PeripheryDrivers\I2C_Config.c</FilePath>
+            </File>
+            <File>
+              <FileName>EXTI_Config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PeripheryDrivers\EXTI_Config.c</FilePath>
             </File>
           </Files>
         </Group>

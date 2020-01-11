@@ -4,13 +4,17 @@
 #include <string.h>
 #include <stdint.h>
 
-#define NUM_OF_LAMPS			6
+#define DYNAMIC_NUM_OF_LAMPS				6
+#define DYNAMIC_ANIMAION_DELAY			10
 
 typedef enum{
-	GETVal,
-	SETVal
-}DynamicCounterState;
+	
+	DYNAMIC_ANIMATION_NONE = 0,
+	DYNAMIC_ANIMATION_ALL_DIGITS,
+	DYNAMIC_ANIMATION_ONE_DIGIT,
+}dynamicAnimations;
 
-void Nixie_ShowArr(uint8_t* arr);
+
+void Dynamic_ParseArr(uint8_t* arr, dynamicAnimations animEnum);
 
 #endif  // DYNAMICINDICATION_H
