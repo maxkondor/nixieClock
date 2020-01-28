@@ -38,7 +38,7 @@ void GPIO_Config(void)
 
 	/*======================= BUTTONS SECTION ========================*/
 
-	GPIO_Struct.Mode 										= GPIO_MODE_IT_RISING;
+	GPIO_Struct.Mode 										= GPIO_MODE_INPUT;
 	GPIO_Struct.Pin 										= GPIO_BUTTON1_PIN |
 																				GPIO_BUTTON2_PIN |
 																				GPIO_BUTTON3_PIN;

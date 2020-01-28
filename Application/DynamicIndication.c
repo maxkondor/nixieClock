@@ -3,12 +3,14 @@
 #include "TIM_Config.h"
 
 typedef enum{
+	
 	GETVal,
 	SETVal
+	
 }Dynamic_CounterState;
 
+bool DelayTimRst = false;
 uint8_t GlobalLampsArr[6];
-
 uint8_t Dynamic_Counter(Dynamic_CounterState state);
 
 void Dynamic_ShowSimpleDigit(uint8_t *digit);
@@ -16,6 +18,8 @@ void Dynamic_ShowArr(uint8_t* nixieArr);
 
 void Dynamic_Animation_None(uint8_t* nixieArr);
 void Dynamic_Animation_AllDigits(uint8_t* nixieArr);
+
+
 
 /*=========================== TIM2 Interrupt Handler ===========================*/
 
@@ -26,48 +30,63 @@ void TIM2_IRQHandler(void)
 }
 /*==============================================================================*/
 
+/*=========================== TIM3 Interrupt Handler ===========================*/
+
+void TIM3_IRQHandler(void)
+{
+	HAL_TIM_IRQHandler(&DelayTimerHandler);
+	
+	if(DelayTimRst == false)
+		DelayTimRst = true;
+}
+/*==============================================================================*/
+
 void Dynamic_ShowSimpleDigit(uint8_t *digit)
 {
 	switch(*digit)
 	{
 		case 0:
-			NIXIE_DECODER_ZERO;
+			DYNAMIC_DECODER_ZERO;
 		break;
 		
 		case 1:
-			NIXIE_DECODER_ONE;
+			DYNAMIC_DECODER_ONE;
 		break;
 		
 		case 2:
-			NIXIE_DECODER_TWO;
+			DYNAMIC_DECODER_TWO;
 		break;
 		
 		case 3:
-			NIXIE_DECODER_THREE;
+			DYNAMIC_DECODER_THREE;
 		break;
 		
 		case 4:
-			NIXIE_DECODER_FOUR;
+			DYNAMIC_DECODER_FOUR;
 		break;
 		
 		case 5:
-			NIXIE_DECODER_FIVE;
+			DYNAMIC_DECODER_FIVE;
 		break;
 		
 		case 6:
-			NIXIE_DECODER_SIX;
+			DYNAMIC_DECODER_SIX;
 		break;
 		
 		case 7:
-			NIXIE_DECODER_SEVEN;
+			DYNAMIC_DECODER_SEVEN;
 		break;
 		
 		case 8:
-			NIXIE_DECODER_EIGHT;
+			DYNAMIC_DECODER_EIGHT;
 		break;
 		
 		case 9:
-			NIXIE_DECODER_NINE;
+			DYNAMIC_DECODER_NINE;
+		break;
+		
+		case 10:
+			DYNAMIC_DECODER_OFF;
 		break;
 	}
 }
@@ -77,32 +96,32 @@ void Dynamic_ShowArr(uint8_t* nixieArr)
 	switch(Dynamic_Counter(GETVal))
 	{
 		case 0:
-			NIXIE_ONLY_1ST_LAMP_ON;
+			DYNAMIC_ONLY_1ST_LAMP_ON;
 			Dynamic_ShowSimpleDigit(&nixieArr[0]);
 		break;
 		
 		case 1:
-			NIXIE_ONLY_2ND_LAMP_ON;
+			DYNAMIC_ONLY_2ND_LAMP_ON;
 			Dynamic_ShowSimpleDigit(&nixieArr[1]);
 		break;
 		
 		case 2:
-			NIXIE_ONLY_3RD_LAMP_ON;
+			DYNAMIC_ONLY_3RD_LAMP_ON;
 			Dynamic_ShowSimpleDigit(&nixieArr[2]);
 		break;
 		
 		case 3:
-			NIXIE_ONLY_4TH_LAMP_ON;
+			DYNAMIC_ONLY_4TH_LAMP_ON;
 			Dynamic_ShowSimpleDigit(&nixieArr[3]);
 		break;
 		
 		case 4:
-			NIXIE_ONLY_5TH_LAMP_ON;
+			DYNAMIC_ONLY_5TH_LAMP_ON;
 			Dynamic_ShowSimpleDigit(&nixieArr[4]);
 		break;
 		
 		case 5:
-			NIXIE_ONLY_6TH_LAMP_ON;
+			DYNAMIC_ONLY_6TH_LAMP_ON;
 			Dynamic_ShowSimpleDigit(&nixieArr[5]);
 		break;
 	}
@@ -122,12 +141,12 @@ uint8_t Dynamic_Counter(Dynamic_CounterState state)
 	return counter;
 }
 
-void Dynamic_ParseArr(uint8_t* arr, dynamicAnimations animEnum)
+void Dynamic_ParseArr(uint8_t* arr, dynamicAnimations animType)
 {
-	if(animEnum == DYNAMIC_ANIMATION_NONE)
+	if(animType == DYNAMIC_ANIMATION_NONE)
 		Dynamic_Animation_None(arr);
 	
-	else if(animEnum == DYNAMIC_ANIMATION_ALL_DIGITS)
+	else if(animType == DYNAMIC_ANIMATION_ALL_DIGITS)
 		Dynamic_Animation_AllDigits(arr);
 }
 
@@ -157,4 +176,48 @@ void Dynamic_Animation_None(uint8_t* nixieArr)
 	memcpy(GlobalLampsArr, nixieArr, DYNAMIC_NUM_OF_LAMPS);
 }
 
+void Dynamic_BlinkOneLamp(uint8_t lamp)
+{
+	
+	
+	switch(lamp)
+	{
+		case 1:
+			DYNAMIC_ONLY_1ST_LAMP_ON;
+		break;
+		
+		case 2:
+			DYNAMIC_ONLY_2ND_LAMP_ON;
+		break;
+		
+		case 3:
+			DYNAMIC_ONLY_3RD_LAMP_ON;
+		break;
+		
+		case 4:
+			DYNAMIC_ONLY_4TH_LAMP_ON;
+		break;
+		
+		case 5:
+			DYNAMIC_ONLY_5TH_LAMP_ON;
+		break;
+		
+		case 6:
+			DYNAMIC_ONLY_6TH_LAMP_ON;
+		
+	}
+}
+
+bool Dynamic_TimerDelay(uint16_t value)
+{
+	bool timReset;
+	TIM3 -> ARR = value;
+	
+	timReset = DelayTimRst;
+	
+	if(DelayTimRst == true)
+		DelayTimRst = false;
+	
+	return timReset;
+}
 

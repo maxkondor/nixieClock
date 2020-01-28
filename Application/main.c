@@ -2,12 +2,9 @@
 #include "GPIO_Config.h"
 #include "TIM_Config.h"
 #include "I2C_Config.h"
-#include "EXTI_Config.h"
 
-#include "Nixie.h"
-
-
-
+#include "MenuManager.h"
+	
 int main (void)
 {
 	HAL_Init();
@@ -16,10 +13,12 @@ int main (void)
 	GPIO_Config();
 	TIM_Config();
 	I2C_Config();
-	EXTI_Config();
+
+	buttons control;
 	
 	while(1)
 	{
-		Nixie_ShowTime();
+		control = Buttons_ActiveButton();
+		Menu_Show(&control);
 	}
 }

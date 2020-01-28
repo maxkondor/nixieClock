@@ -51,7 +51,10 @@ HAL_StatusTypeDef I2C_ReInit(void)
 	HAL_StatusTypeDef status;
 	
 	if(HAL_I2C_DeInit(&I2C_Handler) == HAL_OK)
+	{
+		
 		status = I2C_Config();
+	}
 	
 	return status;
 }
