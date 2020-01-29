@@ -1,6 +1,16 @@
 #include "ButtonsInput.h"
 
-bool ButtonIsPressed = false;
+/*========================================= Global Vars ============================================*/
+
+bool ButtonIsPressed 							  = false;
+/*==================================================================================================*/
+
+/*====================================== Function Prototypes =======================================*/
+
+buttons Buttons_GetCurrentButtonState(void);
+/*==================================================================================================*/
+
+/*================================ Buttons_GetCurrentButtonState ===================================*/
 
 buttons Buttons_GetCurrentButtonState(void)
 {
@@ -40,8 +50,11 @@ buttons Buttons_GetCurrentButtonState(void)
 	
 	return retVal;
 }
+/*==================================================================================================*/
 
-buttons Buttons_ActiveButton(void)
+/*==================================== Buttons_GetKeyCode ========================================*/
+
+buttons Buttons_GetKeyCode(void)
 {
 	static bool oldButtonState;
 	buttons currentButton;
@@ -58,3 +71,4 @@ buttons Buttons_ActiveButton(void)
 	
 	return retData;
 }
+/*==================================================================================================*/

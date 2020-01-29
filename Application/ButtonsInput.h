@@ -19,6 +19,6 @@ typedef enum{
 }buttons;
 
 buttons Buttons_GetCurrentButtonState(void);
-buttons Buttons_ActiveButton(void);
+buttons Buttons_GetKeyCode(void);
 
 #endif // BUTTONSINPUT_H

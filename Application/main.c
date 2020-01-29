@@ -18,7 +18,7 @@ int main (void)
 	
 	while(1)
 	{
-		control = Buttons_ActiveButton();
+		control = Buttons_GetKeyCode();
 		Menu_Show(&control);
 	}
 }

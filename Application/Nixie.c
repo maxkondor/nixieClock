@@ -1,14 +1,18 @@
 #include "Nixie.h"
 
-bool endOfAnimation;
-bool FirstRead = true;
-bool EditState = false;
+/*======================================== Global Vars =============================================*/
 
-ds3231_timeStr TimeStruct;
+bool FirstRead 							= true;
+bool EditState 							= false;
+
+ds3231_timeStr 							TimeStruct;
+/*==================================================================================================*/
+
+/*======================================== Global Enums ============================================*/
 
 typedef enum{
 	
-	NIXIE_ARR_HOURS_TENS = 0,
+	NIXIE_ARR_HOURS_TENS 			= 0,
 	NIXIE_ARR_HOURS_UNITS,
 	
 	NIXIE_ARR_MINUTES_TENS,
@@ -21,11 +25,14 @@ typedef enum{
 
 typedef enum{
 	
-	NIXIE_PAIR_FIRST 	= 0,
-	NIXIE_PAIR_SECOND = 2,
-	NIXIE_PAIR_THIRD 	= 4,
+	NIXIE_PAIR_FIRST 					= 0,
+	NIXIE_PAIR_SECOND 				= 2,
+	NIXIE_PAIR_THIRD 					= 4,
 	
 }nixieDigitPairs;
+/*==================================================================================================*/
+
+/*====================================== Function Prototypes =======================================*/
 
 void Nixie_DissasembleTime(uint8_t* lampArr, const ds3231_timeStr* timStruct);
 void Nixie_SetNumberToArr(uint8_t* lampArr, const int8_t* number, const uint8_t* lampPair);
@@ -35,7 +42,9 @@ void Nixie_BlinkLamps(uint8_t* lampArr, const uint8_t* lamp);
 
 uint8_t Nixie_ChangeBlink(uint8_t* lampArr, buttons button);
 uint8_t Nixie_GetNumberFromArr(const uint8_t* lampArr, const uint8_t* lampPair);
+/*==================================================================================================*/
 
+/*====================================== Nixie_DissasembleTime =====================================*/
 
 void Nixie_DissasembleTime(uint8_t* lampArr, const ds3231_timeStr* timStruct)
 {
@@ -48,6 +57,9 @@ void Nixie_DissasembleTime(uint8_t* lampArr, const ds3231_timeStr* timStruct)
 	lampArr[NIXIE_ARR_SECONDS_TENS] = timStruct->seconds / 10;
 	lampArr[NIXIE_ARR_SECONDS_UNITS] = timStruct->seconds % 10;
 }
+/*==================================================================================================*/
+
+/*===================================== Nixie_GetNumberFromArr =====================================*/
 
 uint8_t Nixie_GetNumberFromArr(const uint8_t* lampArr, const uint8_t* lampPair)
 {
@@ -57,12 +69,18 @@ uint8_t Nixie_GetNumberFromArr(const uint8_t* lampArr, const uint8_t* lampPair)
 	
 	return retNumber;
 }
+/*==================================================================================================*/
+
+/*====================================== Nixie_SetNumberToArr ======================================*/
 
 void Nixie_SetNumberToArr(uint8_t* lampArr, const int8_t* number, const uint8_t* lampPair)
 {
 	lampArr[*lampPair] = *number / 10;
 	lampArr[*lampPair + 1] = *number % 10;
 }
+/*==================================================================================================*/
+
+/*====================================== Nixie_SaveTimeCnanges =====================================*/
 
 void Nixie_SaveTimeCnanges(ds3231_timeStr* timStruct, const uint8_t* lampArr)
 {
@@ -70,6 +88,9 @@ void Nixie_SaveTimeCnanges(ds3231_timeStr* timStruct, const uint8_t* lampArr)
 	timStruct->minutes = lampArr[NIXIE_ARR_MINUTES_TENS] * 10 + lampArr[NIXIE_ARR_MINUTES_UNITS];
 	timStruct->seconds = lampArr[NIXIE_ARR_SECONDS_TENS] * 10 + lampArr[NIXIE_ARR_SECONDS_UNITS];
 }
+/*==================================================================================================*/
+
+/*==================================== Nixie_CheckTimeValidation ===================================*/
 
 void Nixie_CheckTimeValidation(int8_t* number, const uint8_t* lampPair)
 {
@@ -99,6 +120,9 @@ void Nixie_CheckTimeValidation(int8_t* number, const uint8_t* lampPair)
 			break;		
 	}
 }
+/*==================================================================================================*/
+
+/*========================================= Nixie_BlinkLamps =======================================*/
 
 void Nixie_BlinkLamps(uint8_t* lampArr, const uint8_t* lamp)
 {
@@ -125,6 +149,9 @@ void Nixie_BlinkLamps(uint8_t* lampArr, const uint8_t* lamp)
 	
 	oldData = *lamp;
 }
+/*==================================================================================================*/
+
+/*======================================== Nixie_ChangeBlink =======================================*/
 
 uint8_t Nixie_ChangeBlink(uint8_t* lampArr, buttons button)
 {
@@ -143,6 +170,9 @@ uint8_t Nixie_ChangeBlink(uint8_t* lampArr, buttons button)
 	
 	return lampsCounter;
 }
+/*==================================================================================================*/
+
+/*========================================= Nixie_ShowTime =========================================*/
 
 nixieActions Nixie_ShowTime(dynamicAnimations animType)
 {
@@ -157,7 +187,9 @@ nixieActions Nixie_ShowTime(dynamicAnimations animType)
 	
 	return action;
 }
+/*==================================================================================================*/
 
+/*========================================= Nixie_EditTime =========================================*/
 nixieActions Nixie_EditTime(buttons* control)
 {
 	nixieActions action = NIXIE_ACTION_IS_EDITING_TIME;
@@ -207,4 +239,4 @@ nixieActions Nixie_EditTime(buttons* control)
 	
 	return action;
 }
-
+/*==================================================================================================*/
