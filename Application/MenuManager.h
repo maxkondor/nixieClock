@@ -1,8 +1,9 @@
 #ifndef MENUMANAGER_H
 #define MENUMANAGER_H
 
-#include "Nixie.h"
+#include "DataDisplay.h"
+#include "DataEditor.h"
 
-void Menu_Show(buttons* control);
+void Menu_Show(buttonCommands* command);
 
 #endif // MENUMANAGER_H

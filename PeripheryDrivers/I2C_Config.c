@@ -9,7 +9,7 @@ HAL_StatusTypeDef I2C_Config(void)
 	__HAL_RCC_I2C1_CLK_ENABLE();
 	
 	I2C_Handler.Instance 								= I2C1;
-  I2C_Handler.Init.ClockSpeed 				= 100000;
+  I2C_Handler.Init.ClockSpeed 				= 400000;
   I2C_Handler.Init.DutyCycle 					= I2C_DUTYCYCLE_2;
   I2C_Handler.Init.OwnAddress1 				= 0x36;
   I2C_Handler.Init.AddressingMode 		= I2C_ADDRESSINGMODE_7BIT;
@@ -28,7 +28,7 @@ void I2C_WriteData(uint8_t devAddr, uint8_t addr, uint8_t value)
 	sendData[0] = addr;
 	sendData[1] = value;
 	
-	if(HAL_I2C_Master_Transmit(&I2C_Handler, devAddr, sendData, 2, 50) != HAL_OK)
+	if(HAL_I2C_Master_Transmit(&I2C_Handler, devAddr, sendData, 2, 10) != HAL_OK)
 		I2C_ReInit();
 }
 
@@ -38,11 +38,11 @@ uint8_t I2C_ReadData(uint8_t devAddr, uint8_t addr)
 	
 	data[0] = addr;
 
-	HAL_I2C_Master_Transmit(&I2C_Handler, devAddr, &data[0], 1, 50);
+	HAL_I2C_Master_Transmit(&I2C_Handler, devAddr, &data[0], 1, 10);
 	
-	if(HAL_I2C_Master_Receive(&I2C_Handler, devAddr, &data[1], 1, 50) != HAL_OK)
+	if(HAL_I2C_Master_Receive(&I2C_Handler, devAddr, &data[1], 1, 10) != HAL_OK)
 		I2C_ReInit();
-	
+
 	return data[1];
 }
 
@@ -52,7 +52,9 @@ HAL_StatusTypeDef I2C_ReInit(void)
 	
 	if(HAL_I2C_DeInit(&I2C_Handler) == HAL_OK)
 	{
-		
+		__HAL_RCC_I2C1_FORCE_RESET();
+		HAL_Delay(20);
+		__HAL_RCC_I2C1_RELEASE_RESET();
 		status = I2C_Config();
 	}
 	

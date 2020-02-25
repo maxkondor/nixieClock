@@ -13,12 +13,28 @@ int main (void)
 	GPIO_Config();
 	TIM_Config();
 	I2C_Config();
+	I2C_ReInit();
 
-	buttons control;
-	
+	buttonCommands command;
+
 	while(1)
 	{
-		control = Buttons_GetKeyCode();
-		Menu_Show(&control);
+		command = Buttons_GetCommand();
+		Menu_Show(&command);
+		
+//		switch(command)
+//		{
+//			case COMMAND_INCREASING:
+//			break;
+//			
+//			case COMMAND_DECREASING:
+//			break;
+//			
+//			case COMMAND_SAVE_CHANGES:
+//			break;
+//			
+//			default:
+//			break;	
+//		}
 	}
 }

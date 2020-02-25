@@ -42,6 +42,13 @@
 #define GPIO_DS3231_SCL_PIN							GPIO_PIN_6
 /*================================================================*/
 
+/*=======================TEST LED SECTION=========================*/
+
+#define GPIO_TEST_LED_PORT							GPIOC
+
+#define GPIO_TEST_LED_PIN								GPIO_PIN_13
+/*================================================================*/
+
 void GPIO_Config(void);
 
 

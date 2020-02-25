@@ -398,11 +398,6 @@
               <FilePath>.\Application\ButtonsInput.c</FilePath>
             </File>
             <File>
-              <FileName>Nixie.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Application\Nixie.c</FilePath>
-            </File>
-            <File>
               <FileName>MenuManager.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Application\MenuManager.c</FilePath>
@@ -416,6 +411,11 @@
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Application\Delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataDisplay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\DataDisplay.c</FilePath>
             </File>
           </Files>
         </Group>

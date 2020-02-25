@@ -17,8 +17,6 @@ typedef enum{
 	
 }dynamicAnimations;
 
-
 void Dynamic_ParseArr(uint8_t* arr, dynamicAnimations animEnum);
-bool Dynamic_TimerDelay(uint16_t value);
 
 #endif  // DYNAMICINDICATION_H

@@ -4,12 +4,13 @@ void GPIO_Config(void)
 {
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
+	__HAL_RCC_GPIOC_CLK_ENABLE();
 	__HAL_RCC_AFIO_CLK_ENABLE();
-	
+
 	__HAL_AFIO_REMAP_SWJ_NOJTAG();
 
 	GPIO_InitTypeDef 										GPIO_Struct;
-	
+
 	/*====================== NIXIE TUBES SECTION =====================*/
 
 	GPIO_Struct.Mode										= GPIO_MODE_OUTPUT_PP;
@@ -54,8 +55,18 @@ void GPIO_Config(void)
 	GPIO_Struct.Pin											= GPIO_DS3231_SCL_PIN |
 																				GPIO_DS3231_SDA_PIN;
 	GPIO_Struct.Speed										= GPIO_SPEED_FREQ_MEDIUM;
-	 
+
 
 	HAL_GPIO_Init(GPIO_DS3231_PORT, &GPIO_Struct);
+	/*================================================================*/
+
+	/*=======================TEST LED SECTION=========================*/
+
+	GPIO_Struct.Mode										= GPIO_MODE_OUTPUT_PP;
+	GPIO_Struct.Pin											= GPIO_TEST_LED_PIN;
+	GPIO_Struct.Pull										= GPIO_PULLUP;
+	GPIO_Struct.Speed										= GPIO_SPEED_FREQ_MEDIUM;
+
+	HAL_GPIO_Init(GPIO_TEST_LED_PORT, &GPIO_Struct);
 	/*================================================================*/
 }

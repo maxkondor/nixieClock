@@ -1,22 +1,72 @@
 #include "MenuManager.h"
 
 bool EditorMode = false;
-
-void Menu_Show(buttons* control)
+uint8_t MenuCounter = 0;
+dynamicAnimations LampAnimation = (dynamicAnimations)0;
+	
+void Menu_Show(buttonCommands* command)
 {
-//	static uint8_t modeCounter;
-	static nixieActions action;
+	nixieActions action;
 	
 	if(EditorMode == false)
-		action = Nixie_ShowTime(DYNAMIC_ANIMATION_NONE);
+	{
+		switch(MenuCounter)
+		{
+			case 0:
+				action = DataDisplay_ShowTime(LampAnimation);
+			break;
+			
+			case 1:
+				action = DataDisplay_ShowDate(LampAnimation);
+			break;
+			
+			default:
+			break;
+		}
 	
-	if(*control == BUTTON_MODE_SAVE_CHANGES)
-		EditorMode = true;
+		switch(*command)
+		{
+			case COMMAND_EDITOR_MODE:
+				EditorMode = true;
+			break;
+			
+			case COMMAND_INCREASING:
+				MenuCounter++;
+			break;
+
+			case COMMAND_DECREASING:
+				LampAnimation++;
+			break;
+			
+			default:
+			break;
+		}
+	
+		if(MenuCounter > 1)
+			MenuCounter = 0;
+		
+		if(LampAnimation > (dynamicAnimations)1)
+			LampAnimation = (dynamicAnimations)0;
+	}
 	
 	if(EditorMode == true)
-		action = Nixie_EditTime(control);
+	{
+		switch(MenuCounter)
+		{
+			case 0:
+				action = DataDisplay_EditTime(*command);
+			break;
+			
+			case 1:
+				action = DataDisplay_EditDate(*command);
+			break;
+			
+			default:
+			break;
+		}
+	}
 	
-	if(action == NIXIE_ACTION_END_OF_TIME_EDIT)
+	if(action == NIXIE_ACTION_END_OF_TIME_EDIT | action == NIXIE_ACTION_END_OF_DATE_EDIT)
 		EditorMode = false;
 }
 

@@ -8,6 +8,7 @@
 HAL_StatusTypeDef I2C_Config(void);
 void I2C_WriteData(uint8_t devAddr, uint8_t addr, uint8_t value);
 uint8_t I2C_ReadData(uint8_t devAddr, uint8_t addr);
+HAL_StatusTypeDef I2C_ReInit(void);
 
 
 #endif //I2C_CONFIG_H

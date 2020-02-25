@@ -1,6 +1,7 @@
 #include "DynamicIndication.h"
 #include "DynamicIndicationMacrocces.h"
 #include "TIM_Config.h"
+#include "Delay.h"
 
 typedef enum{
 	
@@ -25,19 +26,8 @@ void Dynamic_Animation_AllDigits(uint8_t* nixieArr);
 
 void TIM2_IRQHandler(void)
 {
-	HAL_TIM_IRQHandler(&TimerHandler);
+	HAL_TIM_IRQHandler(&IndicationTimerHandler);
 	Dynamic_ShowArr(GlobalLampsArr);
-}
-/*==============================================================================*/
-
-/*=========================== TIM3 Interrupt Handler ===========================*/
-
-void TIM3_IRQHandler(void)
-{
-	HAL_TIM_IRQHandler(&DelayTimerHandler);
-	
-	if(DelayTimRst == false)
-		DelayTimRst = true;
 }
 /*==============================================================================*/
 
@@ -152,8 +142,8 @@ void Dynamic_ParseArr(uint8_t* arr, dynamicAnimations animType)
 
 void Dynamic_Animation_AllDigits(uint8_t* nixieArr)
 {
-		static uint8_t oldData;
-	
+	static uint8_t oldData;
+
 	if(oldData != nixieArr[5])
 	{
 		for(uint8_t lampsNumb = 0; lampsNumb < 6; lampsNumb++)
@@ -208,16 +198,4 @@ void Dynamic_BlinkOneLamp(uint8_t lamp)
 	}
 }
 
-bool Dynamic_TimerDelay(uint16_t value)
-{
-	bool timReset;
-	TIM3 -> ARR = value;
-	
-	timReset = DelayTimRst;
-	
-	if(DelayTimRst == true)
-		DelayTimRst = false;
-	
-	return timReset;
-}
 
